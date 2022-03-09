@@ -1,0 +1,142 @@
+﻿ @model WebApplication2.Models.AddressVM2
+@{
+    ViewData["Title"] = "TestAddress2";
+}
+
+<h1>TestAddress2</h1>
+<script src="~/lib/jquery/jquery-3.6.0.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @*<input type="text" id="txtLocation" name="txtLocation" onclick="getlocation()"><br>*@
+
+    <form id="studenteForm">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" asp-for="Id" />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control", @id = "txtLocation", @onclick = "getlocation()" })
+                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control", @id = "txtLocationTwo", @onclick = "getlocationTwo()" })
+                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <input type="text" id="txtResult" />
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" onclick="FindDistance()">Find Distance</button>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" onclick="submitStudent()">Submit</button>
+        </div>
+    </form>
+    <h1>@ViewBag.msg </h1>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    function FindDistance() {
+        debugger;
+        /*  $("#State").val($("#drpEmpList").val());*/
+        var data = $("#studenteForm").serialize();
+        console.log(data);
+        alert(data);
+        $.ajax({
+            type: 'POST',
+            url: '/Home/TestAddress2',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: data,
+            success: function (result) {
+                alert('Successfully received Data ');
+                console.log(result);
+            },
+            error: function () {
+                ('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        })
+    }
+
+
+    var a;
+    var L1;
+    var Long1;
+    var L2;
+    var Long2;
+
+    function getlocation() {
+        var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
+        google.maps.event.addListener(places, 'place_changed', function () {
+            a = place;
+            var place = places.getPlace();
+            L1 = place.geometry.location.lat();
+            Long1 = place.geometry.location.lng();
+        });
+    }
+
+    function getlocationTwo() {
+        var places = new google.maps.places.Autocomplete(document.getElementById('txtLocationTwo'));
+        google.maps.event.addListener(places, 'place_changed', function () {
+            a = place;
+            var place = places.getPlace();
+            L2 = place.geometry.location.lat();
+            Long2 = place.geometry.location.lng();
+        });
+
+    }
+
+
+    function FindDistance() {
+
+        var result = distance(L1, Long1, L2, Long2);
+        console.log(result);
+        $("#txtResult").val(result);
+
+    }
+
+
+    function distance(lat1, lon1, lat2, lon2, unit = "k") {
+        debugger;
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        else {
+            var radlat1 = Math.PI * lat1 / 180;
+            var radlat2 = Math.PI * lat2 / 180;
+            var theta = lon1 - lon2;
+            var radtheta = Math.PI * theta / 180;
+            var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            if (dist > 1) {
+                dist = 1;
+            }
+            dist = Math.acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+            if (unit == "K") { dist = dist * 1.609344 }
+            if (unit == "N") { dist = dist * 0.8684 }
+            return dist;
+        }
+    }
+</script>

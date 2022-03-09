@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "FindLocation";
+}
+
+<h1>FindLocation</h1>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Using the scripts in web pages</title>
+    <meta charset="utf-8">
+    <script type="module">
+
+        import LatLon from 'https://cdn.jsdelivr.net/npm/geodesy@2/latlon-spherical.min.js';
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('#calc-dist').onclick = function() {
+                calculateDistance();
+            }
+
+        });
+
+        function calculateDistance() {
+            debugger;
+            const p1 = LatLon.parse(document.querySelector('#point1').value);
+            const p2 = LatLon.parse(document.querySelector('#point2').value);
+            const dist = parseFloat(p1.distanceTo(p2).toPrecision(6));
+            const var1 = dist * 1 / 1609.344;
+            document.querySelector('#result-distance').textContent = var1 + ' miles';
+        }
+
+    </script>
+
+
+</head>
+
+<body>
+
+    <form>
+        <label>Point 1:</label>
+        <input type="text" name="point1" id="point1" placeholder="lat1,lon1">
+
+        <label>Point 2:</label>
+
+        <input type="text" name="point2" id="point2" placeholder="lat2,lon2">
+      
+        <button type="button" id="calc-dist">Calculate distance</button>
+
+        <output id="result-distance"></output>
+    </form>
+</body>
+</html>
