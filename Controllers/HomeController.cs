@@ -62,6 +62,7 @@ namespace WebApplication2.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> BindData(tbl_location tbl)
         {
@@ -105,8 +106,7 @@ namespace WebApplication2.Controllers
 
                 var a = model.Address1.Split(',');
                 model.Address1 = $"{a[0]}, {a[1]}, {a[2]}";
-                var b = model.Address2.Split(',');
-                model.Address2 = $"{a[0]}, {a[1]}, {a[2]}";
+            
 
                 Address vm = new Address()
                 {
@@ -203,11 +203,13 @@ namespace WebApplication2.Controllers
 
         public IActionResult FindLocation(AddressVM model) 
         {
-
             return View();
-        
         }
 
+        public IActionResult Find(AddressVM model)
+        {
+            return View();
+        }
 
     }
 }

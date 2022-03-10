@@ -7,198 +7,225 @@
     TestAddress
 </h1>
 
-
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     @*<input type="text" id="txtLocation" name="txtLocation" onclick="getlocation()"><br>*@
+</div>
+
+<style>
+    #div1 {
+        background-color: cadetblue;
+        width: 33.33%;
+        float: right;
+        height: 900px;
+    }
+
+    #div2 {
+        background-color: cadetblue;
+        width: 33.33%;
+        float: left;
+        height: 900px;
+    }
+
+    #div3 {
+        background-color: cadetblue;
+        width: 33.33%;
+        margin: 0 auto;
+        height: 900px;
+    }
+</style>
+
+
 
 <form id="studenteForm">
 
-
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="=form-group">
-        @Html.LabelFor(model => model.Address1, htmlAttributes: new
-     {
-       @class = "control-label col-md-2"
-     })
-        @*<input type="text" id="idAddress" name="idAddress" onclick="getlocation()"><br>*@
-        @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @id = "txtLocation", onclick = "getlocation()" })
-        @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
-    </div>
+    
+    <div id="div2">
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, htmlAttributes: new
+            {
+               @class = "control-label col-md-2"
+              })
+            @Html.TextBoxFor(m => m.Address1, new { @class = "form-control", @id = "txtLocation", @onclick = "getlocation()" })
+            @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
 
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Longitude, htmlAttributes: new
-        {
-             @class = "control-label col-md-2"
-         })
-        @Html.TextBoxFor(m => m.Longitude, new { @class = "form-control", id = "Longitude", placeholder = "Enter Longitude" })
-        @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Latitude, htmlAttributes: new
-        {
-             @class = "control-label col-md-2"
-         })
-        @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control", id = "Latitude", placeholder = "Enter Latitude" })
-        @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-
-        @Html.LabelFor(model => model.Postal, htmlAttributes: new
-        {
-             @class = "control-label col-md-2"
-         })
-        @Html.TextBoxFor(m => m.Postal, new { @class = "form-control", id = "idPostal", placeholder = "Enter Postalcode" })
-        @Html.ValidationMessageFor(model => model.Postal, "", new { @class = "text-danger" })
-
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.StateId, htmlAttributes: new
-       {
-           @class = "control-label col-md-2"
-       })
-
-        @Html.DropDownListFor(m => m.StateId, new SelectList(Model.StateDropDownList != null ? Model.StateDropDownList : new List<StateMaster>(), "StateId", "StateName"), new { @class = "form-control", id = "drpList" })
-        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.country, htmlAttributes: new
-        {
-        @class = "control-label col-md-2"
-        })
-        @Html.TextBoxFor(m => m.country, new { @class = "form-control", id = "idcountry", placeholder = "Enter country" })
-        @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.City, htmlAttributes: new
-        {
-          @class = "control-label col-md-2"
-        })
-        @Html.TextBoxFor(m => m.City, new { @class = "form-control", id = "idCity", placeholder = "Enter City" })
-        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.District, htmlAttributes: new
-        {
-          @class = "control-label col-md-2"
-        })
-        @Html.TextBoxFor(m => m.District, new { @class = "form-control", id = "idDistrict", placeholder = "Enter District" })
-        @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
-    </div>
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Address2, new { @class = "form-control", @id = "txtLocationTwo", @onclick = "getlocationTwo()" })
-            @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+            @*<input type="text" id="idAddress" name="idAddress" onclick="getlocation()"><br>*@
         </div>
-    </div>
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Longitude1, htmlAttributes: new
+        <div class="form-group">
+            @Html.LabelFor(model => model.Longitude, htmlAttributes: new
         {
-             @class = "control-label col-md-2"
-         })
-        @Html.TextBoxFor(m => m.Longitude1, new { @class = "form-control", id = "Longitude1", placeholder = "Enter Longitude" })
-        @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Latitude1, htmlAttributes: new
-        {
-             @class = "control-label col-md-2"
-         })
-        @Html.TextBoxFor(m => m.Latitude1, new { @class = "form-control", id = "Latitude1", placeholder = "Enter Latitude" })
-        @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-
-        @Html.LabelFor(model => model.Postal1, htmlAttributes: new
-        {
-             @class = "control-label col-md-2"
-         })
-        @Html.TextBoxFor(m => m.Postal1, new { @class = "form-control", id = "idPostal1", placeholder = "Enter Postalcode" })
-        @Html.ValidationMessageFor(model => model.Postal, "", new { @class = "text-danger" })
-
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.StateId1, htmlAttributes: new
-       {
            @class = "control-label col-md-2"
-       })
-
-        @Html.DropDownListFor(m => m.StateId1, new SelectList(Model.StateDropDownList != null ? Model.StateDropDownList : new List<StateMaster>(), "StateId", "StateName"), new { @class = "form-control", id = "drpList1" })
-        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.country1, htmlAttributes: new
-        {
-        @class = "control-label col-md-2"
         })
-        @Html.TextBoxFor(m => m.country1, new { @class = "form-control", id = "idcountry1", placeholder = "Enter country" })
-        @Html.ValidationMessageFor(model => model.country1, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(m => m.Longitude, new { @class = "form-control", id = "Longitude", placeholder = "Enter Longitude" })
+            @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Latitude, htmlAttributes: new
+         {
+           @class = "control-label col-md-2"
+         })
+            @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control", id = "Latitude", placeholder = "Enter Latitude" })
+            @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Postal, htmlAttributes: new
+            {
+                 @class = "control-label col-md-2"
+             })
+            @Html.TextBoxFor(m => m.Postal, new { @class = "form-control", id = "idPostal", placeholder = "Enter Postalcode" })
+            @Html.ValidationMessageFor(model => model.Postal, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateId, htmlAttributes: new
+           {
+               @class = "control-label col-md-2"
+           })
+
+            @Html.DropDownListFor(m => m.StateId, new SelectList(Model.StateDropDownList != null ? Model.StateDropDownList : new List<StateMaster>(), "StateId", "StateName"), new { @class = "form-control", id = "drpList" })
+            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.country, htmlAttributes: new
+            {
+            @class = "control-label col-md-2"
+            })
+            @Html.TextBoxFor(m => m.country, new { @class = "form-control", id = "idcountry", placeholder = "Enter country" })
+            @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new
+            {
+              @class = "control-label col-md-2"
+            })
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control", id = "idCity", placeholder = "Enter City" })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.District, htmlAttributes: new
+            {
+              @class = "control-label col-md-2"
+            })
+            @Html.TextBoxFor(m => m.District, new { @class = "form-control", id = "idDistrict", placeholder = "Enter District" })
+            @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
+        </div>
+
     </div>
+       
+    <div id="div3">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control", @id = "txtLocationTwo", @onclick = "getlocationTwo()" })
+                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.City1, htmlAttributes: new
-        {
-          @class = "control-label col-md-2"
-        })
-        @Html.TextBoxFor(m => m.City1, new { @class = "form-control", id = "idCity1", placeholder = "Enter City" })
-        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.District1, htmlAttributes: new
-        {
-          @class = "control-label col-md-2"
-        })
-        @Html.TextBoxFor(m => m.District1, new { @class = "form-control", id = "idDistrict1", placeholder = "Enter District" })
-        @Html.ValidationMessageFor(model => model.District1, "", new { @class = "text-danger" })
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Longitude1, htmlAttributes: new
+            {
+                 @class = "control-label col-md-2"
+             })
+            @Html.TextBoxFor(m => m.Longitude1, new { @class = "form-control", id = "Longitude1", placeholder = "Enter Longitude" })
+            @Html.ValidationMessageFor(model => model.Longitude, "", new { @class = "text-danger" })
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Distance, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*<input type="text" id="txtResult" />*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Latitude1, htmlAttributes: new
+            {
+                 @class = "control-label col-md-2"
+             })
+            @Html.TextBoxFor(m => m.Latitude1, new { @class = "form-control", id = "Latitude1", placeholder = "Enter Latitude" })
+            @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+        </div>
 
-            @Html.TextBoxFor(model => model.Distance, new { @class = "form-control", id = "txtResult", })
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Postal1, htmlAttributes: new
+            {
+                 @class = "control-label col-md-2"
+             })
+            @Html.TextBoxFor(m => m.Postal1, new { @class = "form-control", id = "idPostal1", placeholder = "Enter Postalcode" })
+            @Html.ValidationMessageFor(model => model.Postal, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateId1, htmlAttributes: new
+           {
+               @class = "control-label col-md-2"
+           })
+
+            @Html.DropDownListFor(m => m.StateId1, new SelectList(Model.StateDropDownList != null ? Model.StateDropDownList : new List<StateMaster>(), "StateId", "StateName"), new { @class = "form-control", id = "drpList1" })
+            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.country1, htmlAttributes: new
+            {
+            @class = "control-label col-md-2"
+            })
+            @Html.TextBoxFor(m => m.country1, new { @class = "form-control", id = "idcountry1", placeholder = "Enter country" })
+            @Html.ValidationMessageFor(model => model.country1, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City1, htmlAttributes: new
+            {
+              @class = "control-label col-md-2"
+            })
+            @Html.TextBoxFor(m => m.City1, new { @class = "form-control", id = "idCity1", placeholder = "Enter City" })
+            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.District1, htmlAttributes: new
+            {
+              @class = "control-label col-md-2"
+            })
+            @Html.TextBoxFor(m => m.District1, new { @class = "form-control", id = "idDistrict1", placeholder = "Enter District" })
+            @Html.ValidationMessageFor(model => model.District1, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Distance, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input type="text" id="txtResult" />*@
+
+                @Html.TextBoxFor(model => model.Distance, new { @class = "form-control", id = "txtResult", })
                 @Html.ValidationMessageFor(model => model.Distance, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div>
+
+        <div>
             <input type="button" class="btn btn-primary" onclick="submitStudent()" value="Submit" />
         </div>
 
-    @*<div class="form-group">
-        <button type="button" class="btn btn-primary" onclick="FindDistance()">Find Distance</button>
-    </div>*@
+    </div>
 
+    
 </form>
-</div>
 
 
 
 @*<script src="~/js/SearchLocation.js?v=1"></script>*@
-@*<script src="~/lib/jquery/jquery-3.6.0.js"></script>
-<script src="~/js/site.js"></script>*@
 
 
 <script type="text/javascript">
@@ -418,8 +445,6 @@
             $("#Longitude").val(Long1);
         });
     }
-
-
     function getlocationTwo()
     {
         debugger;
@@ -511,9 +536,15 @@
         var result = distance(L1, Long1, L2, Long2);
         console.log(result);
         $("#txtResult").val(result);
+
         var data = $("#studenteForm").serialize();
-        console.log(data);
-        alert(data);
+        if (!$("#studenteForm").valid())
+        {
+            return false;
+        }
+
+       // console.log(data);
+       // alert(data);
         $.ajax({
             type: 'POST',
             url: '/Home/TestAddress',
@@ -521,7 +552,6 @@
             data: data,
             success: function (result)
             {
-                
                 //toastr.success('Successfully received Data ');
                 toastr.success('Successfully received Data')
                 //alert('Successfully received Data ');
@@ -531,10 +561,8 @@
                 alert('Failed to receive the Data');
                 console.log('Failed ');
             }
-
         })
     }
-
 
 
 </script>
