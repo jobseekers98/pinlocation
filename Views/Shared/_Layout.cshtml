@@ -57,6 +57,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="FindLocation">FindLocation</a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Find">Find</a>
+                        </li>
+
+
                     </ul>
                 </div>
             </div>
@@ -78,13 +83,17 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await Component.InvokeAsync("Notyf")
     @RenderSection("Scripts", required: false)
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAOaWuSw6Y1KUo6XXGKfwcLah5awnn4tNU"></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAOaWuSw6Y1KUo6XXGKfwcLah5awnn4tNU"></script>*@
+
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOaWuSw6Y1KUo6XXGKfwcLah5awnn4tNU&libraries=places&callback=initAutocomplete" async defer></script>*@
+
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 
-    @*<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </body>

@@ -51,7 +51,6 @@ namespace WebApplication2.Models
         [Key]
         public int Id { get; set; }
         [Required]
-      
         public string Postal { get; set; }
         [Required]
         public string City { get; set; }
@@ -72,21 +71,20 @@ namespace WebApplication2.Models
 
         [Required]
         public string Postal1 { get; set; }
-
+        [Required]
         public string City1 { get; set; }
-
+        [Required]
         public string District1 { get; set; }
-
+        [Required]
         public int StateId1 { get; set; }
-
+        [Required]
         public string country1 { get; set; }
-
+        [Required]
         public string Latitude1 { get; set; }
-
+        [Required]
         public string Longitude1 { get; set; }
-
+        
         public string Distance { get; set; }
-
         public List<StateMaster> StateDropDownList { get; set; }
         //public List<StateMaster> StateDropDownList { get; set; } = new List<StateMaster>();
     };
