@@ -209,5 +209,32 @@ namespace WebApplication2.Controllers
         }
 
 
+
+        [HttpGet]
+        public ActionResult Find() 
+        {
+
+            return View();
+        
+        }
+
+
+
+        //[HttpPost]
+        //public ActionResult Find()
+        //{
+
+        //    return View();
+
+        //}
+
+
     }
+
+
+
+
+
+
+
 }

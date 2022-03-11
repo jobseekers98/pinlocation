@@ -178,7 +178,7 @@
         <div class="col-md-10">
             @*<input type="text" id="txtResult" />*@
 
-            @Html.TextBoxFor(model => model.Distance, new { @class = "form-control", id = "txtResult", })
+            @Html.TextBoxFor(model => model.Distance, new { @class = "form-control", id = "txtResult", placeholder = "Enter Distance" })
                 @Html.ValidationMessageFor(model => model.Distance, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -477,7 +477,7 @@
     }
 
 
-    function distance(lat1, lon1, lat2, lon2, unit = "K") {
+    function distance(lat1, lon1, lat2, lon2, unit) {
         debugger;
         if ((lat1 == lat2) && (lon1 == lon2))
         {
