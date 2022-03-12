@@ -532,6 +532,7 @@ C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.TagHelpers.ou
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.RazorCoreGenerate.cache
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\BindData.cshtml.g.cs
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\ConcateNateQuery.cshtml.g.cs
+C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Find.cshtml.g.cs
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\FindLocation.cshtml.g.cs
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
@@ -550,4 +551,3 @@ C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.dll
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.pdb
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.genruntimeconfig.cache
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.csproj.AssemblyReference.cache
-C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Find.cshtml.g.cs
