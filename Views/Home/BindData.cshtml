@@ -3,13 +3,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
     <label>Search location</label>
-    <input type="text" id="txtLocation" name="txtLocation" onclick="getlocation()"><br>
+    @*<input type="text" id="txtLocation" name="txtLocation" onclick="getlocation()"><br>*@
 
     <form id="studenteForm">
         <input type="hidden" asp-for="Id" />
@@ -25,68 +25,229 @@
 
         <div class="form-group">
             <label asp-for="Address">Address</label>
-            <input type="text" asp-for="Address" class="form-control" id="idAddress" placeholder="Enter Address">
+            <input type="text" id="txtLocation" @*name="txtLocation"*@ onclick="getlocation()"><br>
         </div>
 
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
+        @*<div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>*@
         @*<button type="submit" class="btn btn-primary" onclick="loadDoc()">Submit</button>*@
         @*<div class="form-group col-md-6">
-            <input type="submit" value="Submit" class="btn btn-primary btn-block" onclick="" />
-        </div>*@
-         <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="submitStudent()">Submit</button>
-            </div>
+                <input type="submit" value="Submit" class="btn btn-primary btn-block" onclick="" />
+            </div>*@
+
+
+        <div class="form-group">
+            <label asp-for="Latitude1">Latitude</label>
+            <input type="text" asp-for="Latitude1" class="form-control" id="Latitude1" aria-describedby="emailHelp" placeholder="Enter Latitude">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your location with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label asp-for="Longitude1">Longitude</label>
+            <input type="text" asp-for="Longitude1" class="form-control" id="Longitude1" placeholder="Enter Longitude">
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address1">Address</label>
+            <input type="text" id="txtLocation1" name="txtLocation1" onclick="getlocation1()">
+        </div>
+
+        @*<div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>*@
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" onclick="submitStudent()">Submit</button>
+            @*<input class="btn btn-primary" type="submit" value="Calculate" />*@
+            @*<input type="button" value="Calculate" onclick="GetRoute()" />*@
+        </div>
+
+
     </form>
     <h1>@ViewBag.msg </h1>
-</div>
 
+    <div id="result">
+        <ul class="list-group">
+            <li id="mile"
+                class="
+                  list-group-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                ">
+                Distance In Mile :
+            </li>
 
-
-<div>
-    <div style="display:none" id="resultDiv">
-        <h2>Reservation</h2>
-        <table class="table table-sm table-striped table-bordered m-2" id="tbl_id">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>latitude</th>
-                    <th>longitude</th>
-                    <th>Address</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+            <li id="kilo"
+                class="
+                  list-group-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                ">
+                Distance is Kilo:
+            </li>
+            @*<li id="text"
+                class="
+                  list-group-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                ">
+                IN TEXT:
+            </li>
+            <li id="minute"
+                class="
+                  list-group-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                ">
+                IN MINUTES:
+            </li>
+            <li id="from"
+                class="
+                  list-group-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                ">
+                FROM:
+            </li>
+            <li id="to"
+                class="
+                  list-group-item
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                ">
+                TO:
+            </li>*@
+        </ul>
     </div>
+
+
+   
+
 </div>
+<br />
+<br />
+
+<div id="dvMap" style="min-height:500px"></div>
+<br />
 
 
 
 <div>
-    @*<input type="text" ID="txtLocation" Width="200px" />*@
+
 
     @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
     <script src="~/lib/jquery/jquery-3.6.0.js"></script>
 
     <script type="text/javascript">
+        var markers = [];
+        //var markers = [
+        //    {
+        //        "title": 'Alibaug',
+        //        "lat": '18.641400',
+        //        "lng": '72.872200',
+        //        "description": 'Alibaug is a coastal town and a municipal council in Raigad District in the Konkan region of Maharashtra, India.'
+        //    }
+        //    ,
+        //    {
+        //        "title": 'Mumbai',
+        //        "lat": '18.964700',
+        //        "lng": '72.825800',
+        //        "description": 'Mumbai formerly Bombay, is the capital city of the Indian state of Maharashtra.'
+        //    }
+        //    ,
+        //    {
+        //        "title": 'Pune',
+        //        "lat": '18.523600',
+        //        "lng": '73.847800',
+        //        "description": 'Pune is the seventh largest metropolis in India, the second largest in the state of Maharashtra after Mumbai.'
+        //    }
+        //];
+
+        //window.onload = function () {
+        function renderMap() {
+            if (markers.length > 0) {
+                var mapOptions = {
+                    center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+                    zoom: 10,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                var infoWindow = new google.maps.InfoWindow();
+                var lat_lng = new Array();
+                var latlngbounds = new google.maps.LatLngBounds();
+                for (i = 0; i < markers.length; i++) {
+                    var data = markers[i]
+                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                    lat_lng.push(myLatlng);
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: data.title
+                    });
+
+                    latlngbounds.extend(marker.position);
+                    (function (marker, data) {
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            infoWindow.setContent(data.description);
+                            infoWindow.open(map, marker);
+                        });
+                    })(marker, data);
+                }
+                map.setCenter(latlngbounds.getCenter());
+                map.fitBounds(latlngbounds);
+
+                //***********ROUTING****************//
+
+                //Initialize the Path Array
+                var path = new google.maps.MVCArray();
+
+                //Initialize the Direction Service
+                var service = new google.maps.DirectionsService();
+
+                //Set the Path Stroke Color
+                //var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+
+                //Loop and Draw Path Route between the Points on MAP
+                //for (var i = 0; i < lat_lng.length; i++) {
+                //    if ((i + 1) < lat_lng.length) {
+                //        var src = lat_lng[i];
+                //        var des = lat_lng[i + 1];
+                //        path.push(src);
+                //        poly.setPath(path);
+                //        service.route({
+                //            origin: src,
+                //            destination: des,
+                //            travelMode: google.maps.DirectionsTravelMode.DRIVING
+                //        }, function (result, status) {
+                //            if (status == google.maps.DirectionsStatus.OK) {
+                //                for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                //                    path.push(result.routes[0].overview_path[i]);
+                //                }
+                //            }
+                //        });
+                //    }
+                //}
+            }
+        }
 
 
-        //AddScript('AIzaSyAOaWuSw6Y1KUo6XXGKfwcLah5awnn4tNU');
-
-        //function AddScript(key) {
-        //    var script = document.createElement('script');
-
-        //    script.type = 'text/javascript';
-        //    document.getElementsByTagName('head')[0].appendChild(script);
-        //    getlocation();
-        //}
 
         function submitStudent() {
+            debugger;
+            var result = calculateDistance();
+            //console.log(result);
+            $("#result").val(result);
             var data = $("#studenteForm").serialize();
-            console.log(data);
-            alert(data);
+
+           // console.log(data);
+           // alert(data);
             $.ajax({
                 type: 'POST',
                 url: '/Home/BindData',
@@ -101,11 +262,11 @@
                     console.log('Failed ');
                 }
             })
+
         }
 
-      
-
         function getlocation() {
+            debugger;
             var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
             google.maps.event.addListener(places, 'place_changed', function () {
                 var place = places.getPlace();
@@ -114,13 +275,135 @@
                 var longitude = place.geometry.location.lng();
                 $("#Latitude").val(latitude);
                 $("#Longitude").val(longitude);
-                $("#idAddress").val(address);
+
                 var mesg = "Address: " + address;
                 mesg += "\nLatitude: " + latitude;
                 mesg += "\nLongitude: " + longitude;
-                alert(mesg);
+                var marker =
+                {
+                    title: place,
+                    lat: latitude,
+                    lng: longitude,
+                    description: address
+                }
+                markers.push(marker);
+                renderMap();
+                //alert(mesg);
+            });
+
+        }
+
+        function getlocation1() {
+            debugger;
+            var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation1'));
+            google.maps.event.addListener(places, 'place_changed', function () {
+                var place = places.getPlace();
+                var address = place.formatted_address;
+                var latitude = place.geometry.location.lat();
+                var longitude = place.geometry.location.lng();
+                $("#Latitude1").val(latitude);
+                $("#Longitude1").val(longitude);
+
+                var mesg = "Address: " + address;
+                mesg += "\nLatitude: " + latitude;
+                mesg += "\nLongitude: " + longitude;
+                var marker =
+                {
+                    title: place,
+                    lat: latitude,
+                    lng: longitude,
+                    description: address
+                }
+                markers.push(marker);
+                renderMap();
+                //alert(mesg);
             });
         }
+
+
+        function calculateDistance() {
+            var origin = $("#txtLocation").val();
+            var destination = $("#txtLocation1").val();
+            var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+                {
+                    origins: [origin],
+                    destinations: [destination],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    unitSystem: google.maps.UnitSystem.IMPERIAL, // miles and feet.
+                    // unitSystem: google.maps.UnitSystem.metric, // kilometers and meters.
+                    avoidHighways: false,
+                    avoidTolls: false,
+                },
+                callback
+            );
+        }
+
+        // get distance results
+        function callback(response, status) {
+            if (status != google.maps.DistanceMatrixStatus.OK) {
+                $("#result").html(err);
+            } else {
+                var origin = response.originAddresses[0];
+                console.log(origin);
+                var destination = response.destinationAddresses[0];
+                console.log(destination);
+                if (response.rows[0].elements[0].status === "ZERO_RESULTS") {
+                    $("#result").html(
+                        "Better get on a plane. There are no roads between " +
+                        origin +
+                        " and " +
+                        destination
+                    );
+                } else {
+                    var distance = response.rows[0].elements[0].distance;
+                    console.log(distance);
+                    var duration = response.rows[0].elements[0].duration;
+                    console.log(duration);
+                    console.log(response.rows[0].elements[0].distance);
+                    var distance_in_kilo = distance.value / 1000; // the kilom
+                    var distance_in_mile = distance.value / 1609.34; // the mile
+                    console.log(distance_in_kilo);
+                    console.log(distance_in_mile);
+                    var duration_text = duration.text;
+                    var duration_value = duration.value;
+                    $("#mile").html(
+                        `Distance in Miles: ${distance_in_mile.toFixed(2)}`
+                    );
+                    $("#kilo").html(
+                        `Distance in Kilometre: ${distance_in_kilo.toFixed(2)}`
+                    );
+                    $("#text").html(`Distance in Text: ${duration_text}`);
+                    $("#minute").html(`Distance in Minutes: ${duration_value}`);
+                    $("#from").html(`Distance From: ${origin}`);
+                    $("#to").text(`Distance to: ${destination}`);
+                }
+            }
+        }
+
+
+
+        //print results on submit the form
+        //$("#studenteForm").submit(function (e) {
+        //    e.preventDefault();
+        //    calculateDistance();
+        //});
+
     </script>
+
+
 </div>
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

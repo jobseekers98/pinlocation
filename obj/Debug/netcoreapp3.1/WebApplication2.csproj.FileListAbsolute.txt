@@ -551,3 +551,5 @@ C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.dll
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.pdb
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.genruntimeconfig.cache
 C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\WebApplication2.csproj.AssemblyReference.cache
+C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\FindMap.cshtml.g.cs
+C:\PinLocation\pinlocation\obj\Debug\netcoreapp3.1\Razor\Views\Home\Map.cshtml.g.cs

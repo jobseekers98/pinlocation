@@ -16,5 +16,12 @@ namespace WebApplication2.Models
 
         public string Address { get; set; }
 
+
+        public string Latitude1 { get; set; }
+
+        public string Longitude1 { get; set; }
+
+        public string Address1 { get; set; }
+
     }
 }

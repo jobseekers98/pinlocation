@@ -131,12 +131,13 @@ namespace WebApplication2.Controllers
                 };
                 dbcontext.tbl_SaveAddress.Add(vm);
                 int i = dbcontext.SaveChanges();
-                if (i == 1)
-                {
-                    var Jsonobj = new {success = true, msg = "Data save successfuly" };
-                    return new JsonResult(Jsonobj);
+                //if (i == 1)
+                //{
+                //    var Jsonobj = new {success = true, msg = "Data save successfuly" };
+                //    return new JsonResult(Jsonobj);
 
-                }
+                //}
+                return View(model);
             }
 
             catch (Exception ex)
@@ -227,6 +228,25 @@ namespace WebApplication2.Controllers
         //    return View();
 
         //}
+
+
+        [HttpGet]
+        public ActionResult FindMap()
+        {
+
+            return View();
+
+        }
+
+        [HttpGet]
+        public ActionResult Map()
+        {
+
+            return View();
+
+        }
+
+
 
 
     }
