@@ -55,6 +55,19 @@ namespace WebApplication2.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [HttpGet]
+        public JsonResult GetData()
+        {
+            var selectResult = dbcontext.tbl_SaveAddress.Select(s => new {
+                Address1 = s.Address1,
+                Latitude = s.Latitude,
+                Longitude = s.Longitude,
+                Address2 = s.Address2,
+                Latitude1 = s.Latitude1,
+                Longitude1 = s.Longitude1,
+            }).ToList();
+            return Json(selectResult);
+        }
 
         [HttpGet]
         public IActionResult BindData() 

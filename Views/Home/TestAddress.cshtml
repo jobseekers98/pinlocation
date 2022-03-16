@@ -9,14 +9,13 @@
 
 <style>
 
-    #div1
-    {
+    #div1 {
         background-color: skyblue;
         width: 33.33%;
         float: right
     }
 
-    #div2 {
+    #dvMap {
         background-color: yellow;
         width: 33.33%;
         float: right
@@ -40,7 +39,7 @@
 
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div @*id="div1"*@>
+        <div id="div1">
 
             <div class="=form-group">
                 @Html.LabelFor(model => model.Address1, htmlAttributes: new
@@ -121,7 +120,7 @@
 
         </div>
 
-        <div @*id="div3"*@>
+        <div id="div3">
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -201,8 +200,6 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Distance, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="text" id="txtResult" />
-
                     @Html.TextBoxFor(model => model.Distance, new { @class = "form-control", id = "txtResult", placeholder = "Enter Distance" })
                     @Html.ValidationMessageFor(model => model.Distance, "", new { @class = "text-danger" })
                 </div>
@@ -287,7 +284,7 @@
 <br />
 <br />
 
-<div id="dvMap" style="min-height:500px"></div>
+<div id="dvMap"></div>
 <br />
 
 @*<script src="~/js/SearchLocation.js?v=1"></script>*@
@@ -296,149 +293,8 @@
 
 
 <script type="text/javascript">
+    var markers = [];
 
-    //var a;
-    //function getlocation() {
-    //    debugger;
-
-    //    var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
-    //    google.maps.event.addListener(places, 'place_changed', function () {
-    //        var place = places.getPlace();
-    //        var latitude = place.geometry.location.lat();
-    //        var longitude = place.geometry.location.lng();
-    //        //var address = place.formatted_address;
-    //        //var strArray = address.split(',');
-    //        //var Addarr = strArray[0] + strArray[1] + strArray[2];
-    //        //("#txtLocation").val(Addarr);
-
-
-    //        var country;
-    //        var city;
-    //        var district;
-    //        var Postal;
-    //        var State;
-    //        debugger;
-    //        for (var i = 0; i < place.address_components.length; i++) {
-    //            var find = false;
-    //            for (var j = 0; j < place.address_components[i].types.length; j++) {
-    //                if (place.address_components[i].types[j] == "postal_code") {
-    //                    Postal = place.address_components[i].long_name;
-    //                }
-
-    //                else if (place.address_components[i].types[j] == "locality") {
-    //                    city = place.address_components[i].long_name;
-    //                }
-
-    //                else if (place.address_components[i].types[j] == "administrative_area_level_2") {
-
-    //                    district = place.address_components[i].long_name;
-    //                }
-
-    //                else if (place.address_components[i].types[j] == "administrative_area_level_1") {
-    //                    State = place.address_components[i].long_name;
-    //                    //alert(State);
-    //                    if (State !== null) {
-    //                        $("#drpList option:contains(" + State.toUpperCase() + ")").attr('selected', 'selected');
-    //                        //$("#drpEmpList").val(State).attr("selected", "selected");
-    //                        // $("#drpList").val(State);
-    //                        //$('select[name^="salesrep"] option[value="Bruce Jones"]').attr("selected", "selected");
-    //                    }
-    //                }
-    //                else if (place.address_components[i].types[j] == "country") {
-    //                    country = place.address_components[i].long_name;
-    //                }
-    //            }
-    //        }
-
-    //        debugger;
-
-    //        $("#idPostal").val(Postal);
-    //        $("#idCity").val(city);
-    //        $("#idDistrict").val(district);
-    //        $("#drpEmpList").text(State);
-    //        $("#idcountry").val(country);
-    //        $("#Latitude").val(latitude);
-    //        $("#Longitude").val(longitude);
-
-
-    //    });
-    //}
-
-
-    ////function getlocationTwo() {
-    ////    var places = new google.maps.places.Autocomplete(document.getElementById('txtLocationTwo'));
-    ////    google.maps.event.addListener(places, 'place_changed', function () {
-    ////        a = place;
-    ////        var place = places.getPlace();
-    ////        L2 = place.geometry.location.lat();
-    ////        Long2 = place.geometry.location.lng();
-    ////    });
-
-    ////}
-
-    //function submitStudent() {
-    //    debugger;
-    //   // toastr.options.onclick = function (result) { alert(this.data.msg); }
-    //    var result = distance(L1, Long1, L2, Long2);
-    //    console.log(result);
-    //    $("#txtResult").val(result);
-    //    var data = $("#studenteForm").serialize();
-    //    console.log(data);
-    //    alert(data);
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Home/TestAddress',
-    //        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-    //        data: data,
-    //        success: function (result)
-    //        {
-    //            alert('Successfully received Data ');
-    //            console.log(result);
-    //        },
-    //        error: function () {
-    //            alert('Failed to receive the Data');
-    //            console.log('Failed ');
-    //        }
-
-    //    })
-    //}
-
-    //var a;
-    //var L1;
-    //var Long1;
-    //var L2;
-    //var Long2;
-
-
-    //function FindDistance() {
-    //    var result = distance(L1, Long1, L2, Long2);
-    //    console.log(result);
-    //    $("#txtResult").val(result);
-    //}
-
-
-    //function distance(lat1, lon1, lat2, lon2, unit = "k") {
-    //    debugger;
-    //    if ((lat1 == lat2) && (lon1 == lon2)) {
-    //        return 0;
-    //    }
-    //    else {
-    //        var radlat1 = Math.PI * lat1 / 180;
-    //        var radlat2 = Math.PI * lat2 / 180;
-    //        var theta = lon1 - lon2;
-    //        var radtheta = Math.PI * theta / 180;
-    //        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    //        if (dist > 1) {
-    //            dist = 1;
-    //        }
-    //        dist = Math.acos(dist);
-    //        dist = dist * 180 / Math.PI;
-    //        dist = dist * 60 * 1.1515;
-    //        if (unit == "K") { dist = dist * 1.609344 }
-    //        if (unit == "N") { dist = dist * 0.8684 }
-    //        return dist;
-    //    }
-    //}
 
     var a;
     var L1;
@@ -447,32 +303,24 @@
     var Long2;
 
     function getlocation() {
-        debugger;
+        //debugger;
 
 
         var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
         google.maps.event.addListener(places, 'place_changed', function () {
-          
+
             var place = places.getPlace();
             //var address = place.formatted_address
             latitude = place.geometry.location.lat();
             longitude = place.geometry.location.lng();
-            //var marker =
-            //{
-            //    title: place,
-            //    lat: latitude,
-            //    lng: longitude,
-            //    description: address
-            //}
-            //markers.push(marker);
-            renderMap();
+
 
             var country;
             var city;
             var district;
             var Postal;
             var State;
-            debugger;
+            //debugger;
             for (var i = 0; i < place.address_components.length; i++) {
                 var find = false;
                 for (var j = 0; j < place.address_components[i].types.length; j++) {
@@ -505,7 +353,7 @@
                     }
                 }
             }
-            
+
 
             $("#idPostal").val(Postal);
             $("#idCity").val(city);
@@ -514,33 +362,37 @@
             $("#idcountry").val(country);
             $("#Latitude").val(latitude);
             $("#Longitude").val(longitude);
+
+            var marker =
+            {
+                title: place,
+                lat: latitude,
+                lng: longitude,
+                description: address
+            }
+            markers.push(marker);
+            renderMap();
+
+
         });
     }
 
 
     function getlocationTwo() {
-        debugger;
+        //debugger;
         var places = new google.maps.places.Autocomplete(document.getElementById('txtLocationTwo'));
         google.maps.event.addListener(places, 'place_changed', function () {
             var place1 = places.getPlace();
             //var address = place1.formatted_address;
             latitude = place1.geometry.location.lat();
             longitude = place1.geometry.location.lng();
-            //var marker =
-            //{
-            //    title: place1,
-            //    lat: latitude,
-            //    lng: longitude,
-            //    description: address
-            //}
-            //markers.push(marker);
-            //renderMap();
+
             var country;
             var city;
             var district;
             var Postal;
             var State;
-           
+
             for (var i = 0; i < place1.address_components.length; i++) {
                 var find = false;
                 for (var j = 0; j < place1.address_components[i].types.length; j++) {
@@ -579,18 +431,31 @@
             $("#idcountry1").val(country);
             $("#Latitude1").val(latitude);
             $("#Longitude1").val(longitude);
+            var result = calculateDistance();
+            //console.log(result);
+            $("#txtResult").val(result);
+            var marker =
+            {
+                title: place1,
+                lat: latitude,
+                lng: longitude,
+                description: address
+            }
+            markers.push(marker);
+            renderMap();
+
         });
     }
 
-    function renderMap()
-    {
-        debugger;
+    function renderMap() {
+        //debugger;
         if (markers.length > 0) {
             var mapOptions = {
                 center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
                 zoom: 10,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
+            debugger;
             var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
             var infoWindow = new google.maps.InfoWindow();
             var lat_lng = new Array();
@@ -651,34 +516,10 @@
     }
 
 
-    //function distance(lat1, lon1, lat2, lon2, unit) {
-    //    debugger;
-    //    if ((lat1 == lat2) && (lon1 == lon2)) {
-    //        return 0;
-    //    }
 
-    //    else {
-    //        var radlat1 = Math.PI * lat1 / 180;
-    //        var radlat2 = Math.PI * lat2 / 180;
-    //        var theta = lon1 - lon2;
-    //        var radtheta = Math.PI * theta / 180;
-    //        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    //        if (dist > 1) {
-    //            dist = 1;
-    //        }
-    //        dist = Math.acos(dist);
-    //        dist = dist * 180 / Math.PI;
-    //        dist = dist * 60 * 1.1515;
-    //        if (unit == "K") { dist = dist * 1.609344 }
-
-    //        if (unit == "N") { dist = dist * 0.8684 }
-    //        if (unit == "M") { dist = dist }
-    //        return dist;
-    //    }
-    //}
 
     function calculateDistance() {
-        debugger;
+        //debugger;
         var origin = $("#txtLocation").val();
         var destination = $("#txtLocationTwo").val();
         var service = new google.maps.DistanceMatrixService();
@@ -724,7 +565,7 @@
                 console.log(distance_in_mile);
                 var duration_text = duration.text;
                 var duration_value = duration.value;
-                $("#mile").html(
+                $("#txtResult").html(
                     `Distance in Miles: ${distance_in_mile.toFixed(2)}`
                 );
                 $("#kilo").html(
@@ -735,21 +576,70 @@
                 $("#from").html(`Distance From: ${origin}`);
                 $("#to").text(`Distance to: ${destination}`);
             }
+            return distance_in_mile;
         }
+
+    }
+
+    $(document).ready(function () {
+        //debugger;
+        LoadMarkers();
+
+    });
+
+
+    function LoadMarkers() {
+        $.ajax({
+            type: 'GET',
+            url: '/Home/GetData',
+            //async: false,
+            //contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+            data: "",
+            success: function (result) {
+
+                //    //toastr.success('Successfully received Data ');
+                //    toastr.success('Successfully received Data')
+                //alert('Successfully received Data ');
+                console.log('Get Markers success');
+                console.log(result);
+                $.each(result, function (index, res) {
+                    //debugger;
+                    console.log(res);
+                    var marker =
+                    {
+                        title: res.address1,
+                        lat: res.latitude,
+                        lng: res.longitude,
+                        description: ""
+                    }
+                    markers.push(marker);
+                    var marker1 =
+                    {
+                        title: res.address2,
+                        lat: res.latitude1,
+                        lng: res.longitude1,
+                        description: ""
+                    }
+                    markers.push(marker1);
+                });
+                renderMap();
+            },
+            error: function () {
+                //alert('Failed to receive the Data');
+                console.log('Get Markers failed');
+            }
+
+        })
     }
 
 
 
-
-
     function submitStudent() {
-        debugger;
+        //debugger;
         //var result = distance(L1, Long1, L2, Long2);
         //console.log(result);
         //$("#txtResult").val(result);
-        var result = calculateDistance();
-        //console.log(result);
-        $("#result").val(result);
+
         var data = $("#studenteForm").serialize();
         console.log(data);
         alert(data);
@@ -758,13 +648,13 @@
             url: '/Home/TestAddress',
             contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
             data: data,
-            //success: function (result) {
+            success: function (result) {
 
-            //    //toastr.success('Successfully received Data ');
-            //    toastr.success('Successfully received Data')
-            //    //alert('Successfully received Data ');
-            //    console.log(result);
-            //},
+                //    //toastr.success('Successfully received Data ');
+                //    toastr.success('Successfully received Data')
+                alert('Successfully received Data ');
+                //    console.log(result);
+            },
             success: function (result) {
                 alert('Successfully received Data ');
                 console.log(result);

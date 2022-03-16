@@ -48,21 +48,21 @@
     var directionsDisplay;
     var directionsService;
     $(document).ready(function () {
-
+        debugger;
         var map = new google.maps.Map(document.getElementById('dvMap'), {
             center: { lat: 50.834697, lng: -0.773792 },
             zoom: 13,
             mapTypeId: 'roadmap'
         });
         directionsService = new google.maps.DirectionsService();
-       
+
     });
 
     // initialise the location of the map on Chichester in England (ref lat and lng)
 
 
     function PushDestination() {
-        debugger;
+        //debugger;
         destination = document.getElementById("travelto").value;
         locations.push(destination);
         document.getElementById("travelto").value = "";
@@ -72,13 +72,13 @@
 
 
     function setDestination(dest) {
-        debugger;
+        //debugger;
         document.getElementById('travelto').value = dest;
         PushDestination();
     }
 
     function GetRoute() {
-        debugger;
+        //debugger;
         directionsDisplay.setMap(map);
         source = document.getElementById("travelfrom").value;
         destination = document.getElementById("travelto").value;
@@ -120,7 +120,7 @@
 
 
     directionsService.route(request, function (response, status) {
-        debugger;
+        //debugger;
         if (status == google.maps.DirectionsStatus.OK) {
             var dvDistance = document.getElementById("dvDistance");
             var distance = 0;

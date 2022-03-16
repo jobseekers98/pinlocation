@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -147,28 +147,57 @@
 
     <script type="text/javascript">
         var markers = [];
-        //var markers = [
-        //    {
-        //        "title": 'Alibaug',
-        //        "lat": '18.641400',
-        //        "lng": '72.872200',
-        //        "description": 'Alibaug is a coastal town and a municipal council in Raigad District in the Konkan region of Maharashtra, India.'
-        //    }
-        //    ,
-        //    {
-        //        "title": 'Mumbai',
-        //        "lat": '18.964700',
-        //        "lng": '72.825800',
-        //        "description": 'Mumbai formerly Bombay, is the capital city of the Indian state of Maharashtra.'
-        //    }
-        //    ,
-        //    {
-        //        "title": 'Pune',
-        //        "lat": '18.523600',
-        //        "lng": '73.847800',
-        //        "description": 'Pune is the seventh largest metropolis in India, the second largest in the state of Maharashtra after Mumbai.'
-        //    }
-        //];
+
+        $(document).ready(function () {
+            //debugger;
+            LoadMarkers();
+
+        });
+
+
+        function LoadMarkers() {
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetData',
+                //async: false,
+                //contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: "",
+                success: function (result) {
+
+                    //    //toastr.success('Successfully received Data ');
+                    //    toastr.success('Successfully received Data')
+                    //alert('Successfully received Data ');
+                    console.log('Get Markers success');
+                    console.log(result);
+                    $.each(result, function (index, res) {
+                        //debugger;
+                        console.log(res);
+                        var marker =
+                        {
+                            title: res.address1,
+                            lat: res.latitude,
+                            lng: res.longitude,
+                            description: ""
+                        }
+                        markers.push(marker);
+                        var marker1 =
+                        {
+                            title: res.address2,
+                            lat: res.latitude1,
+                            lng: res.longitude1,
+                            description: ""
+                        }
+                        markers.push(marker1);
+                    });
+                    renderMap();
+                },
+                error: function () {
+                    //alert('Failed to receive the Data');
+                    console.log('Get Markers failed');
+                }
+
+            })
+        };
 
         //window.onload = function () {
         function renderMap() {
@@ -240,7 +269,7 @@
 
 
         function submitStudent() {
-            debugger;
+            //debugger;
             var result = calculateDistance();
             //console.log(result);
             $("#result").val(result);
@@ -266,7 +295,7 @@
         }
 
         function getlocation() {
-            debugger;
+            //debugger;
             var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
             google.maps.event.addListener(places, 'place_changed', function () {
                 var place = places.getPlace();
@@ -294,7 +323,7 @@
         }
 
         function getlocation1() {
-            debugger;
+            //debugger;
             var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation1'));
             google.maps.event.addListener(places, 'place_changed', function () {
                 var place = places.getPlace();

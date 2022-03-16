@@ -68,7 +68,7 @@
 
 
         function getlocation() {
-            debugger;
+            //debugger;
             var places = new google.maps.places.Autocomplete(document.getElementById('txtLocation'));
             google.maps.event.addListener(places, 'place_changed', function () {
                 var place = places.getPlace();
